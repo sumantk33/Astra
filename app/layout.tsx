@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import Header from "@/components/molecules/Header";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,11 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
+        className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
+        <Header />
         {children}
       </body>
     </html>
