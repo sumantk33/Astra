@@ -14,6 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Avatar, components } from "../common";
+import { ThemeToggle } from "@/components/atoms/toggle-theme";
 
 // Todo: Handle sign in or avatar based on logged in user condition
 
@@ -26,7 +27,7 @@ export function NavigationDropDown() {
             <Avatar />
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-1 lg:w-[300px] ">
+            <ul className="grid w-[200px] gap-3 p-4 md:w-[500px] md:grid-cols-1 lg:w-[200px] ">
               {components.map((component) => (
                 <ListItem
                   key={component.title}
@@ -38,6 +39,9 @@ export function NavigationDropDown() {
               ))}
             </ul>
           </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <ThemeToggle />
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href="/sign-in" legacyBehavior passHref>

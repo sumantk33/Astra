@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Header from "@/components/molecules/Header";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -25,8 +26,15 @@ export default function RootLayout({
       <body
         className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
-        <Header />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
