@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { NavigationDropDown } from "./NavDropdown/desktop";
 import { NavigationDropDownMobile } from "./NavDropdown/mobile";
+import { useUserDataServer } from "@/lib/auth";
 
-const Header = () => {
+const Header = async () => {
+  const user = await useUserDataServer();
   return (
     <header className="shadow-md py-3">
       {/* Desktop */}
@@ -10,7 +12,7 @@ const Header = () => {
         <Link href="/">
           <h2 className="text-2xl font-bold">Astra</h2>
         </Link>
-        <NavigationDropDown />
+        <NavigationDropDown avatarUrl={user?.user?.image || null} />
       </nav>
 
       {/* Mobile */}
@@ -18,7 +20,7 @@ const Header = () => {
         <Link href="/">
           <h2 className="text-2xl font-bold">Astra</h2>
         </Link>
-        <NavigationDropDownMobile />
+        <NavigationDropDownMobile avatarUrl={user?.user?.image || ""} />
       </nav>
     </header>
   );

@@ -1,36 +1,38 @@
-import Image from "next/image";
 import {
   Avatar as AvatarUi,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import { signOut } from "next-auth/react";
 
-export function Avatar() {
+export type NavProps = {
+  avatarUrl: string | null;
+};
+
+export function Avatar({ avatarUrl }: NavProps) {
   return (
     <AvatarUi>
-      <AvatarImage src="https://github.com/shadcn.png" />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarImage src={avatarUrl || "https://github.com/shadcn.png"} />
+      <AvatarFallback>Hi</AvatarFallback>
     </AvatarUi>
   );
 }
 
 export const components: {
   title: string;
-  href: string;
-  description?: string;
+  href?: string;
+  onClick?: () => void;
 }[] = [
   {
     title: "Create blog",
     href: "/user/create",
-    description: "In a mood to write something?",
   },
   {
     title: "My blogs",
     href: "/user/my-blogs",
-    description: "Handle all the blogs that you've created.",
   },
   {
     title: "Logout",
-    href: "/user/logout",
+    onClick: signOut,
   },
 ];

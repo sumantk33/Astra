@@ -1,42 +1,42 @@
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Avatar, components } from "../common";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, NavProps, components } from "../common";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/atoms/toggle-theme";
+import { If } from "@/components/atoms/If";
 
-export function NavigationDropDownMobile() {
+export function NavigationDropDownMobile({ avatarUrl }: NavProps) {
   return (
     <div className="flex gap-3">
       <ThemeToggle />
-      <Sheet>
-        <SheetTrigger asChild>
-          <>
-            <Button variant="outline" asChild>
-              <Avatar />
-            </Button>
-          </>
-        </SheetTrigger>
-        <SheetContent>
-          <div className="flex flex-col">
-            {components.map((component, index) => (
-              <Button variant="link" key={index} asChild>
-                <Link href={component.href} className="text-md">
-                  {component.title}
-                </Link>
+      <If test={!!avatarUrl}>
+        <Sheet>
+          <SheetTrigger asChild>
+            <>
+              <Button variant="outline" asChild>
+                <Avatar avatarUrl={avatarUrl} />
               </Button>
-            ))}
-          </div>
-        </SheetContent>
-      </Sheet>
+            </>
+          </SheetTrigger>
+          <SheetContent>
+            <div className="flex flex-col">
+              {components.map((component, index) => (
+                // Todo: Update logout functionality
+                <Button variant="link" key={index} asChild>
+                  <Link href={component.href || ""} className="text-md">
+                    {component.title}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+      </If>
+      <If test={!avatarUrl}>
+        <Link href="/sign-in" legacyBehavior passHref>
+          <Button variant="outline">Sign In</Button>
+        </Link>
+      </If>
     </div>
   );
 }
